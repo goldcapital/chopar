@@ -20,6 +20,11 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
     @Autowired
     private  AuthService authService;
+    @GetMapping("/loge")
+    @Operation(summary = "Api for login", description = "this api used for authorization")
+    public ResponseEntity<ProfileDTO>loge(@RequestBody ProfileDTO dto){
+       return ResponseEntity.ok( authService.loge(dto));
+    }
 
 @Operation(summary = "Api for registration",description = "this api used for registration")
     @PostMapping("/registration")
