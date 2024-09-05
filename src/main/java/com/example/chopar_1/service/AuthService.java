@@ -98,6 +98,9 @@ private  MailSenderService mailSenderService;
 
     public ProfileDTO loge(ProfileDTO dto) {
         CustomUserDetails userDetails= (CustomUserDetails) customUserDetailsService.loadUserByUsername(dto.getEmail());
+        if(userDetails.isEnabled()){
+            throw new AppBadException("topilmadi");
+        }
 
 
 
