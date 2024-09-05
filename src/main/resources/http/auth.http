@@ -1,0 +1,12 @@
+POST localhost:8081/auth/registration
+Content-Type: application/json
+Accept-Language: ru
+
+{
+  "name": "Muhammad",
+  "password": "2002",
+  "email": "abduraimovmuhammad888@gmail.com"
+}
+
+###
+GET localhost:8081/auth/verification/email/{{id}}
