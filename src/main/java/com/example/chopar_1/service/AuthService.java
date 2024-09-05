@@ -96,9 +96,18 @@ private  MailSenderService mailSenderService;
         return null;
     }
 
-    public ProfileDTO loge(ProfileDTO dto) {
-        CustomUserDetails userDetails= (CustomUserDetails) customUserDetailsService.loadUserByUsername(dto.getEmail());
-
+    public ProfileDTO loge(ProfileDTO dto, AppLanguage appLanguage) {
+        Optional<ProfileEntity> optional = profileRepository.findByEmail(dto.getEmail());
+        if (optional.isPresent()) {
+            if (optional.get().getStatus().equals(ProfileStatus.ACTIVE) && optional.get().getPassword().equals(MDUtil.encode(dto.getPassword()))) {
+                //  throw new AppBadException(resourceBundleService.getMessage("item.not.found",appLanguage));
+                ProfileEntity entity = optional.get();
+                ProfileDTO profileDTO = new ProfileDTO();
+                profileDTO.setName(entity.getName());
+                profileDTO.setJwt(JWTUtil.encode(dto.getEmail(), entity.getRole(), appLanguage));
+                return profileDTO;
+            }
+            throw new AppBadException(resourceBundleService.getMessage("email.password.wrong",appLanguage));
 
 
         return null;
