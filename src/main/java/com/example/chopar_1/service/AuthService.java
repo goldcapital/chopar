@@ -1,5 +1,7 @@
 package com.example.chopar_1.service;
 
+import com.example.chopar_1.config.CustomUserDetails;
+import com.example.chopar_1.config.CustomUserDetailsService;
 import com.example.chopar_1.dto.JwtDTO;
 import com.example.chopar_1.dto.ProfileDTO;
 import com.example.chopar_1.entity.ProfileEntity;
@@ -17,6 +19,8 @@ import java.util.Optional;
 @Service
 
 public class AuthService {
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
     @Autowired
     private  ProfileRepository profileRepository;
     @Autowired
@@ -91,4 +95,17 @@ private  MailSenderService mailSenderService;
 
         return null;
     }
+
+    public ProfileDTO loge(ProfileDTO dto) {
+        CustomUserDetails userDetails= (CustomUserDetails) customUserDetailsService.loadUserByUsername(dto.getEmail());
+
+
+
+        return null;
+    }
+   /* public RegionEntity get(Integer id) {
+        return regionRepository.findById(id).orElseThrow(() -> {
+            // warning
+            throw new AppBadException("Region not found");
+        });*/
 }
