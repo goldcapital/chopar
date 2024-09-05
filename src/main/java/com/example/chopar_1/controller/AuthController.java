@@ -22,8 +22,9 @@ public class AuthController {
     private  AuthService authService;
     @GetMapping("/loge")
     @Operation(summary = "Api for login", description = "this api used for authorization")
-    public ResponseEntity<ProfileDTO>loge(@RequestBody ProfileDTO dto){
-       return ResponseEntity.ok( authService.loge(dto));
+    public ResponseEntity<ProfileDTO>loge(@RequestBody ProfileDTO dto,
+                                          @RequestHeader(value = "Accept-Language",defaultValue = "uz")AppLanguage appLanguage){
+       return ResponseEntity.ok( authService.loge(dto,appLanguage));
     }
 
 @Operation(summary = "Api for registration",description = "this api used for registration")
