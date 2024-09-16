@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "product_attach")
+@Table(name = "product_attach_entity")
 public class ProductAttach extends BastEntity {
     @Column(name = "product_id", nullable = false)
     private Long productId;

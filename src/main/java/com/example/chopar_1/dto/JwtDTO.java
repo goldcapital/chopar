@@ -8,10 +8,23 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
+
 public class JwtDTO {
+    private String phone;
     private String email;
     private ProfileRole role;
     private AppLanguage appLanguage;
 
+    public JwtDTO(String email, ProfileRole role, AppLanguage appLanguage) {
+        this.email = email;
+        this.role = role;
+        this.appLanguage = appLanguage;
+    }
+
+    public JwtDTO(String phone , AppLanguage appLanguage, ProfileRole role) {
+        this.role = role;
+        this.appLanguage=appLanguage;
+        this.phone=phone;
+
+    }
 }

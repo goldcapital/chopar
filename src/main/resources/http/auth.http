@@ -1,12 +1,42 @@
-POST localhost:8081/auth/registration
+POST localhost:8081/auth/registration/phone
 Content-Type: application/json
-Accept-Language: ru
+Accept-Language: uz
 
 {
   "name": "Muhammad",
   "password": "2002",
-  "email": "abduraimovmuhammad888@gmail.com"
+  "phone": "998938464749"
 }
 
 ###
 GET localhost:8081/auth/verification/email/{{id}}
+
+###
+GET localhost:8081/auth/loge
+Content-Type: application/json
+Accept-Language: uz
+
+{
+  "phone": "+998938464749",
+  "password": "2002"
+}
+
+###
+POST localhost:8081/auth/registration/email
+Content-Type: application/json
+Accept-Language: uz
+
+{
+  "name": "Muhammad",
+  "password": "20021225M",
+  "email": "muhammadabduraimov5@gmail.com"
+}
+####
+POST localhost:8081/auth/verification/phone
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE3MjY0ODk5NzIsImFwcExhbmd1YWdlIjoidXoiLCJyb2xlIjoiUk9MRV9VU0VSIiwicGhvbmUiOiI5OTg5Mzg0NjQ3NDkiLCJleHAiOjE3MjY1NzYzNzJ9.Xbk8cHHK1v40QJck8GuIvO_Wfb5O0C6JZCP3iI-Bal0G3kPkbfGEchWmgxuTZXn8bB_tbu1fJnIFnI-a2cYTlA
+
+{
+  "phone": "998938464749",
+  "password": "20021225M"
+  }
