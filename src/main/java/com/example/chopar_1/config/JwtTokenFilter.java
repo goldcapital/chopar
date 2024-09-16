@@ -45,8 +45,14 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             String token = authHeader.substring(7);
             JwtDTO jwtDto;
             try {
+                UserDetails userDetails;
                 jwtDto = JWTUtil.decode(token);
-                UserDetails userDetails = userDetailsService.loadUserByUsername(jwtDto.getEmail());
+                if (jwtDto.getEmail()!=null) {
+                     userDetails = userDetailsService.loadUserByUsername(jwtDto.getEmail());
+                }else {
+                    userDetails = userDetailsService.loadUserByUsername(jwtDto.getPhone());
+
+                }
                 UsernamePasswordAuthenticationToken
                         authentication = new UsernamePasswordAuthenticationToken(userDetails,
                         null, userDetails.getAuthorities());

@@ -28,7 +28,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
             "/swagger-ui/**",
             "/swagger-resources",
             "/swagger-resources/**",
-            "/auth/**"
+            "/auth/**" ,
+            "/auth/verification/phone"
 
     };
         @Autowired

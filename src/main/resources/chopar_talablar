@@ -47,7 +47,7 @@
 2. Profile
     1. Create profile (name,phone,status,birthdate) (role will be ADMIN)
     2. Update Profile (ADMIN)
-    3. Update Profile Detail (ANY) (Profile updates own details)
+    3. Update Profile Detail (ANY) (Profile updates ow.n details)
     4. Profile List (ADMIN) (Pagination)
     5. Delete Profile By Id (ADMIN)
 3. Region
@@ -135,3 +135,4 @@
 		with pagination.
    5. filter with pagination. filter items order_date, order status, profile-id, product-id. Only for admin.
 
+docker run -p 8080:8080  -e KEYCLOAK_ADMIN=admin  -e KEYCLOAK_ADMIN_PASSWORD=admin  keycloak keycloak:17.0.0  start-dev

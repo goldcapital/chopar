@@ -16,15 +16,18 @@ public class CustomUserDetails implements UserDetails {
     private String id;
     @Getter
     private String email;
+    @Getter
+    private String phone;
     private String password;
     private ProfileStatus status;
     private ProfileRole role;
 
 
 
-    public CustomUserDetails(String id, String email, String password, ProfileStatus status, ProfileRole role) {
+    public CustomUserDetails(String id, String email,String phone, String password, ProfileStatus status, ProfileRole role) {
         this.id = id;
         this.email = email;
+        this.phone = phone;
         this.password = password;
         this.status = status;
         this.role = role;
@@ -44,7 +47,10 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
+        if(email!=null){
+            return email;
+        }
+        return phone;
     }
 
     @Override

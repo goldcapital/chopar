@@ -7,8 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "order")
-public class OrderEntity extends  BastEntity{
+@Table(name = "order_entity")
+public class OrderEntity extends BastEntity {
 
   /*  @Column(name = "profile_id", nullable = false)
     private Long profileId;*/
@@ -25,9 +25,12 @@ public class OrderEntity extends  BastEntity{
 
     @Column(name = "delivered_contact", nullable = false)
     private String deliveredContact;
-  /*  @Column(name = "delivered_contact")
-   private  String delivered_contact;*/
+    /*  @Column(name = "delivered_contact")
+     private  String delivered_contact;*/
+
+    @Column(name = "profile_id")
+    private String profileId;
     @ManyToOne
-@JoinColumn(name = "profile_id")
-    private  ProfileEntity profile_id;
+    @JoinColumn(name = "profile_id",updatable = false,insertable = false)
+    private ProfileEntity profile;
 }

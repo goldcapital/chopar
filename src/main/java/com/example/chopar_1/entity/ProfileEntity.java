@@ -20,7 +20,7 @@ public class ProfileEntity extends BastEntity  {
     @Column(name = "phone")
 
     private  String phone;
-    @Column(name = "email",nullable = false)
+    @Column(name = "email")
     private String  email;//(un,no t null),
 
     @Column(name = "password")
@@ -35,7 +35,7 @@ public class ProfileEntity extends BastEntity  {
     private ProfileRole role;
     @Column(name = "birth_data")
   private LocalDateTime birthDate;//(not null)
-    @Column(name = "jwt")
+    @Column(name = "jwt",columnDefinition = "Text")
     private String jwt;
 
 }

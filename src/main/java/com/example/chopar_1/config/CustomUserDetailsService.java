@@ -22,13 +22,13 @@ public class CustomUserDetailsService implements UserDetailsService {
         //Bu metodda biz spring securitga murojat
         // qilsak spring securit shu metoda  username olib kiladi bu email yoki phone bulishi mumkin
         // login/phone/email
-        Optional<ProfileEntity> optional = profileRepository.findByEmail(username);
+        Optional<ProfileEntity> optional = profileRepository.findByEmailOrPhone(username,username);
         if (optional.isEmpty()) {
             throw new AppBadException("Bad Credentials. Mazgi");
         }
 
         ProfileEntity profile = optional.get();
-        return new CustomUserDetails(profile.getId(), profile.getEmail(),
+        return new CustomUserDetails(profile.getId(), profile.getEmail(), profile.getPhone(),
                 profile.getPassword(), profile.getStatus(), profile.getRole());
     }
 }

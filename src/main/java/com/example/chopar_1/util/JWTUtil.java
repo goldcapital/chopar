@@ -10,75 +10,62 @@ import io.jsonwebtoken.*;
 
 import javax.crypto.spec.SecretKeySpec;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class JWTUtil {
-    private static final int tokenLiveTime=1000*3600*24;
-    private static  final String secretKey="fhifjhffnrueialrewrrrjfsruytrettdft46uhgyihkhgkgfftrmhgfffrtrmyuk,illkjkj";
+    private static final int tokenLiveTime = 1000 * 3600 * 24;
 
+    private static final String secretKey = "fhifjhffnrueialrewrrrjfsruytrettdft46uhgyihkhgkgfftrmhgfffrtrmyukillkjkj";
 
-    public static String encode(String email, ProfileRole role, AppLanguage appLanguage) {
-
-        JwtBuilder jwtBuilder = Jwts.builder();
-        jwtBuilder.issuedAt(new Date());
+    public static String encode(String phone, String email, ProfileRole role, AppLanguage appLanguage) {
 
         SignatureAlgorithm sa = SignatureAlgorithm.HS512;
         SecretKeySpec secretKeySpec = new SecretKeySpec(secretKey.getBytes(), sa.getJcaName());
-
-        jwtBuilder.signWith(secretKeySpec);
-
-        jwtBuilder.claim("appLanguage", appLanguage);
-
-        jwtBuilder.claim("email", email);
-        jwtBuilder.claim("role", role);
-
-        jwtBuilder.expiration(new Date(System.currentTimeMillis() + (tokenLiveTime)));
-        //  jwtBuilder.issuer("YouTube");
-        return jwtBuilder.compact();
-
-
-       /* JwtBuilder jwtBuilder = Jwts.builder();
-        jwtBuilder.issuedAt(new Date());
-        jwtBuilder.signWith(SignatureAlgorithm.HS512, secretKey);
-
-        jwtBuilder.claim("profileId", profileId);
-        jwtBuilder.claim("role", role);
-
-        jwtBuilder.expiration(new Date(System.currentTimeMillis() + (tokenLiveTime)));
-        jwtBuilder.issuer("kunuz test portali");
-        return jwtBuilder.compact();*/
+        // Token yaratish jarayoni
+        return Jwts.builder()
+                .setIssuedAt(new Date())
+                .signWith(secretKeySpec, sa)
+                .claim("phone", phone)
+                .claim("email", email)
+                .claim("role", role)
+                .claim("appLanguage", appLanguage)
+                .setExpiration(new Date(System.currentTimeMillis() + tokenLiveTime))
+                .compact();
     }
-   //     try {
 
 
-           /* //The JWT signature algorithm we will be using to sign the token
-            String jwtToken = Jwts.builder().subject("role").issuedAt(role)
-                    .setAudience("id")
-                    .signWith(SignatureAlgorithm.HS256,secretKey.getBytes()).compact();
-
-            System.out.println("jwtToken=");
-            System.out.println(jwtToken);
-        } catch (Exception e)
-        {
-            System.out.println(e.getMessage());*/
-
-
+    // JWT tokenni dekod qilish
     public static JwtDTO decode(String token) {
+
         SignatureAlgorithm sa = SignatureAlgorithm.HS512;
         SecretKeySpec secretKeySpec = new SecretKeySpec(secretKey.getBytes(), sa.getJcaName());
-        JwtParser jwtParser = Jwts.parser()
-                .verifyWith(secretKeySpec)
+
+        // JWT parser yaratish
+        JwtParser jwtParser = Jwts.parserBuilder()
+                .setSigningKey(secretKeySpec)
                 .build();
 
-        Jws<Claims> jws = jwtParser.parseSignedClaims(token);
-        Claims claims = jws.getPayload();
+        // Tokenni parsilash va claims'larni olish
+        Jws<Claims> jws = jwtParser.parseClaimsJws(token);
+        Claims claims = jws.getBody();
 
-        String id = (String) claims.get("email");
-        String role = (String) claims.get("role");
-        String appLanguage=(String) claims.get("appLanguage") ;
-        AppLanguage appLanguage1=AppLanguage.valueOf(appLanguage);
-        ProfileRole profileRole = ProfileRole.valueOf(role);
+        // Claims'lar orqali ma'lumotlarni olish
+        String phone = claims.get("phone", String.class);
+        String email = claims.get("email", String.class);
+        String role = claims.get("role", String.class);
+        String appLanguage = claims.get("appLanguage", String.class);
 
-        return new JwtDTO(id, profileRole,appLanguage1);
+        // Enum tiplarini olish
+        AppLanguage appLanguageEnum = AppLanguage.valueOf(appLanguage);
+        ProfileRole profileRoleEnum = ProfileRole.valueOf(role);
+
+        // Email bo'lsa, uni qaytaradi; bo'lmasa phone qaytaradi
+        if (email != null) {
+            return new JwtDTO(email, profileRoleEnum, appLanguageEnum);
+        }
+        return new JwtDTO(phone, profileRoleEnum, appLanguageEnum);
     }
-
 }
+
+
