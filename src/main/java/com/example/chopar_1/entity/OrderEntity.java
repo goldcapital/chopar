@@ -1,11 +1,13 @@
 package com.example.chopar_1.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+@EqualsAndHashCode(callSuper = true)
+@Data
 @Entity
 @Table(name = "order_entity")
 public class OrderEntity extends BastEntity {

@@ -24,6 +24,7 @@ import java.time.LocalDateTime;
 public class AuthController {
     @Autowired
     private  AuthService authService;
+
     @GetMapping("/loge")
     @Operation(summary = "Api for login", description = "this api used for authorization")
     public ResponseEntity<ProfileDTO>loge(@RequestBody ProfileLoginRequestDTO dto,
@@ -54,10 +55,9 @@ public class AuthController {
 
     @Operation(summary = "Api for Phone code  Verification",description = "this api used for verification phone")
     @PostMapping("/verification/phone")
-    public ResponseEntity<Boolean> smsVerification(@RequestBody  String code,
-                                                   @RequestHeader(value ="Authorization") String jwt ) {
-        String token = jwt.replace("Bearer ", "");
-        //log.info("registration", dto.getEmail(), dto.getPhone());
-        return ResponseEntity.ok(authService.smsVerification(code, token));
+    public ResponseEntity<Boolean> smsVerification(@RequestParam("code") String code,
+                                                   @RequestParam("phone") String phone,
+                                                   @RequestHeader(value = "Accept-Language", defaultValue = "uz") AppLanguage appLanguage) {
+        return ResponseEntity.ok(authService.smsVerification(phone,code, appLanguage));
     }
 }

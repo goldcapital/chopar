@@ -12,6 +12,7 @@ import lombok.Setter;
 @Table(name = "sms_history")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SmsHistoryEntity extends BastEntity {
+
     @Column(name = "code")
     private  String code;
 
@@ -21,10 +22,9 @@ public class SmsHistoryEntity extends BastEntity {
     @Column(name = "message",columnDefinition = "TEXT")
     private  String message;
 
-    @Column (name = "jwt")
-    private String jwt;
     @Column(name = "from_date")
     private Integer fromDate;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private SmsStatus status;

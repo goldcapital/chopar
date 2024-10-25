@@ -30,6 +30,18 @@
         <java.version>17</java.version>
     </properties>
     <dependencies>
+   <!--     mapper-->
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>1.5.5.Final</version> <!-- MapStruct versiyasi -->
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <version>1.5.5.Final</version>
+            <scope>provided</scope>
+        </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui -->
         <dependency>
@@ -38,12 +50,6 @@
             <version>2.6.0</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
-       <!-- <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <version>0.12.6</version>
-        </dependency>-->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>

@@ -15,6 +15,7 @@ public class SmsServerService {
     private String email;
     @Value("${my.eskiz.uz.password}")
     private String password;
+
     public  void send (String phone, String text,String code){
 sendSmsHTTP(phone,text+code);
     }

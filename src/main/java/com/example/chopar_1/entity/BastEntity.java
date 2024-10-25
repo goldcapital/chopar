@@ -1,19 +1,16 @@
 package com.example.chopar_1.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDateTime;
-
-@Getter
-@Setter
+@Data
 @MappedSuperclass
 public class BastEntity {
     @Id
-  /*  @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Integer id;*/
    @GeneratedValue(generator = "uuid-hibernate-generator")
     @GenericGenerator(name = "uuid-hibernate-generator", strategy = "org.hibernate.id.UUIDGenerator")
    private String id;
