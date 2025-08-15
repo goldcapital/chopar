@@ -1,0 +1,49 @@
+spring:
+   application:
+       name: customer-service
+   datasource:
+     driver-class-name: org.postgresql.Driver
+     url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:mydb}
+     username: ${DB_USERNAME:myuser}
+     password: ${DB_PASSWORD:12345}
+   jpa:
+    hibernate:
+      ddl-auto: none
+   liquibase:
+     enabled: true
+     change-log: classpath:db/changelog/changelog-master.yml
+   config:
+     import:
+       - optional:file:.env[.properties]
+   data:
+       redis:
+         host: localhost
+         port: 6379
+   kafka:
+     producer:
+       bootstrap-servers: ${BOOTSTRAP_SERVERS:localhost:9094}
+       key-serializer: org.apache.kafka.common.serialization.StringSerializer
+       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+       properties:
+         spring.json.type.mapping: orderConfirmation:com.example.ecommerce.order.config.kafka.OrderConfirmation
+   security:
+      oauth2:
+        resourceserver:
+          jwt:
+            issuer-uri: "http://127.0.0.1:9080/realms/chopar-realm"
+server:
+  port: 2222
+app:
+  config:
+      notification-url: http://localhost:8221/api/v1
+kafka-topics:
+  producer:
+     topic: kafka-send
+
+kc-props:
+  username: admin
+  password: admin
+  clientId: my_client
+  clientSecret: npjku1B3w9ARoAMDdqqeVLXU2lCX1qpc
+  realm: chopar-realm
+  serverUrl: http://127.0.0.1:9080
