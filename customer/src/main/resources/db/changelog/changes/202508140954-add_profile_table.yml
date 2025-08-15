@@ -1,0 +1,67 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1755178296080-1
+      author: muhammad
+      changes:
+        - sql:
+            sql: CREATE TYPE status_type AS ENUM ( 'ACTIVE','NOT_ACTIVE','REGISTRATION')
+            dbms: postgresql
+  - changeSet:
+      id: 1755178598265-1
+      author: muhammad
+      changes:
+        - sql:
+            sql: CREATE TYPE role_type AS ENUM ('ROLE_MODERATOR','ROLE_USER','ROLE_ADMIN')
+            dbms: postgresql
+
+  - changeSet:
+      id:  1755178592303-1
+      author: muhammad
+      changes:
+        - createTable:
+            tableName: profile
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar
+              - column:
+                  name: username
+                  type: varchar
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: email
+                  type: varchar
+              - column:
+                  name: password
+                  type: varchar
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: status
+                  type: status_type
+
+              - column:
+                  name: birth_data
+                  type: date
+              - column:
+                  name: created_date
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_date
+                  type: timestamp
+
+
+
+
+
+

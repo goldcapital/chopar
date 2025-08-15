@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Verification</title>
+    <style>
+        .header { text-align: center; color: #333; }
+        .message {
+            background-color: #CD5C5C;
+            color: white;
+            padding: 30px;
+            border-radius: 5px;
+        }
+        .verify-btn {
+            background-color: #f44336;
+            color: white;
+            padding: 14px 25px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+<h1 class="header" th:text="'Hello ' + ${name}">Hello User</h1>
+
+<p class="message">
+    To complete registration, please click the button below:
+</p>
+
+<div style="text-align: center;">
+    <a th:href="${verificationLink}" class="verify-btn">
+        Verify Email
+    </a>
+</div>
+
+<p style="text-align: center; color: #777;">
+    If you didn't request this, please ignore this email.
+</p>
+</body>
+</html>
