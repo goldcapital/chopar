@@ -1,9 +1,10 @@
 package com.example.notification.service;
 
-import com.example.notification.enums.EmailTemplates;
+
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -17,7 +18,7 @@ import java.util.Map;
 
 import static com.example.notification.enums.EmailTemplates.SEND_EMILE_VERIFICATION;
 
-
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class MailSenderService {
@@ -51,22 +52,29 @@ public class MailSenderService {
         }
     }
 
-    public void sendVerificationEmail(String email, String name, String jwt) throws MessagingException {
+    public void sendVerificationEmail(String email, String name, String jwt) {
         MimeMessage message = javaMailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-        helper.setFrom(fromAccount);
-        final var templateName = SEND_EMILE_VERIFICATION.getTemplate();
-        Map<String, Object> variables = new HashMap<>();
-        variables.put("name", name);
-        variables.put("verificationLink", "http://localhost:8081/auth/verification/email/" + jwt);
+        MimeMessageHelper helper = null;
+        try {
+            helper = new MimeMessageHelper(message, true, "UTF-8");
 
-        Context context = new Context();
-        context.setVariables(variables);
-        var htmlContent = templateEngine.process(templateName, context);
+            log.warn("SEND Email verification email {}", email);
+            helper.setFrom(fromAccount);
+            final var templateName = SEND_EMILE_VERIFICATION.getTemplate();
+            Map<String, Object> variables = new HashMap<>();
+            variables.put("name", name);
+            variables.put("verificationLink", "http://localhost:2222/auth/verification/email/" + jwt);
 
-        helper.setTo(email);
-        helper.setSubject(SEND_EMILE_VERIFICATION.getSubject());
-        helper.setText(htmlContent, true);
-        javaMailSender.send(message);
+            Context context = new Context();
+            context.setVariables(variables);
+            var htmlContent = templateEngine.process(templateName, context);
+
+            helper.setTo(email);
+            helper.setSubject(SEND_EMILE_VERIFICATION.getSubject());
+            helper.setText(htmlContent, true);
+            javaMailSender.send(message);
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

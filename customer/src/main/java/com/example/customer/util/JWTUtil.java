@@ -3,6 +3,7 @@ package com.example.customer.util;
 import com.example.customer.dto.JwtDTO;
 import com.example.customer.enums.AppLanguage;
 import com.example.customer.enums.ProfileRole;
+import com.example.customer.enums.ProfileStatus;
 import io.jsonwebtoken.*;
 
 import javax.crypto.spec.SecretKeySpec;
@@ -13,7 +14,7 @@ public class JWTUtil {
 
     private static final String secretKey = "fhifjhffnrueialrewrrrjfsruytrettdft46uhgyihkhgkgfftrmhgfffrtrmyukillkjkj";
 
-    public static String encode(String phone, String email, ProfileRole role, AppLanguage appLanguage) {
+    public static String encode(String phone, String email, ProfileStatus role, AppLanguage appLanguage) {
 
         SignatureAlgorithm sa = SignatureAlgorithm.HS512;
         SecretKeySpec secretKeySpec = new SecretKeySpec(secretKey.getBytes(), sa.getJcaName());
@@ -51,7 +52,7 @@ public class JWTUtil {
 
         // Enum tiplarini olish
         AppLanguage appLanguageEnum = AppLanguage.valueOf(appLanguage);
-        ProfileRole profileRoleEnum = ProfileRole.valueOf(role);
+        ProfileStatus profileRoleEnum = ProfileStatus.valueOf(role);
 
         if (email != null) {
             return  JwtDTO.builder()

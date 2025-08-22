@@ -1,0 +1,22 @@
+POST http://localhost:2222/auth/registration/email
+Accept: application/json
+Content-Type: application/json
+Accept-Language: UZ
+
+{
+  "firstname": "Ali",
+  "lastname": "Valiyev",
+  "email": "muhammadabduraimov5@gmail.com",
+  "password": "12345"
+}
+
+### LOGE
+POST http://localhost:2222/auth/loge
+Accept: application/json
+Content-Type: application/json
+Accept-Language: UZ
+
+{
+  "email": "muhammadabduraimov5@gmail.com",
+  "password": "12345"
+}

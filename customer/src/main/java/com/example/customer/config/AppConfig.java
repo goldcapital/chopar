@@ -13,7 +13,7 @@ public class AppConfig {
         ResourceBundleMessageSource messageSource=new ResourceBundleMessageSource();
         messageSource.setBasenames("i18n/messages");
         messageSource.setDefaultEncoding("UTF-8");
-        messageSource.setDefaultLocale(new Locale("uz"));
+        messageSource.setDefaultLocale(new Locale("UZ"));
         return messageSource;
     }
     }
