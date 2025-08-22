@@ -1,15 +1,13 @@
-package com.example.notification.entity;
+package com.example.customer.entity;
 
-
-
-import com.example.notification.enums.SmsStatus;
+import com.example.customer.enums.SmsStatus;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-@Getter
-@Setter
+@EqualsAndHashCode(callSuper = true)
+@Data
 @Entity
 @Table(name = "sms_history")
 @JsonInclude(JsonInclude.Include.NON_NULL)

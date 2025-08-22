@@ -24,7 +24,9 @@ databaseChangeLog:
               - column:
                   name: id
                   type: bigint
+                  autoIncrement: true
                   constraints:
+                    primaryKey: true
                     nullable: false
               - column:
                   name: name
@@ -43,7 +45,17 @@ databaseChangeLog:
                   type: varchar
                   constraints:
                     nullable: false
-
+              - column:
+                  name: keycloak_id
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: phone
+                  type: varchar
+              - column:
+                  name: visible
+                  type: boolean
               - column:
                   name: status
                   type: status_type
@@ -51,6 +63,9 @@ databaseChangeLog:
               - column:
                   name: birth_data
                   type: date
+              - column:
+                  name: role
+                  type: role_type
               - column:
                   name: created_date
                   type: TIMESTAMP

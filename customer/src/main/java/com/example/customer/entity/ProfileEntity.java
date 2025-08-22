@@ -12,7 +12,7 @@ import org.hibernate.dialect.PostgreSQLEnumJdbcType;
 
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 
 @Data
 @Entity
@@ -31,6 +31,7 @@ public class ProfileEntity extends BastEntity {
 
     @Column(name = "password")
     private String password;
+    private String keycloakId;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
@@ -43,6 +44,6 @@ public class ProfileEntity extends BastEntity {
     private ProfileRole role;
 
     @Column(name = "birth_data")
-    private LocalDate birthDate;
+    private LocalDate birthData;
 
 }

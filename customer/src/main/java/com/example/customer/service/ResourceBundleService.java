@@ -11,7 +11,7 @@ import java.util.Locale;
 @RequiredArgsConstructor
 public class ResourceBundleService {
 
-    private  ResourceBundleMessageSource resourceBundleMessageSource;
+    private  final ResourceBundleMessageSource resourceBundleMessageSource;
 
     public String getMessage(String code, AppLanguage appLanguage) {
         return resourceBundleMessageSource.getMessage(code, null, new Locale(appLanguage.name()));

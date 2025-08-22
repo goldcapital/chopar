@@ -25,7 +25,9 @@ spring:
        key-serializer: org.apache.kafka.common.serialization.StringSerializer
        value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
        properties:
-         spring.json.type.mapping: orderConfirmation:com.example.ecommerce.order.config.kafka.OrderConfirmation
+         spring.json.add.type.headers: true
+
+
    security:
       oauth2:
         resourceserver:
@@ -38,7 +40,13 @@ app:
       notification-url: http://localhost:8221/api/v1
 kafka-topics:
   producer:
-     topic: kafka-send
+     topic:
+       sms: kafka-send-sms
+       email: kafka-send-email
+sms:
+  verification:
+    max-attempts: 3
+    attempt-window-minutes: 1
 
 kc-props:
   username: admin

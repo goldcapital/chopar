@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 public interface ProfileRepository extends JpaRepository<ProfileEntity,Long> {
@@ -30,7 +31,7 @@ public interface ProfileRepository extends JpaRepository<ProfileEntity,Long> {
     Optional <ProfileEntity> getSmsBatwenCreatedDate(String phone, LocalDateTime from, LocalDateTime to);
 
     @Query("from  ProfileEntity  where email =email or phone =phone")
-    Optional <ProfileEntity>  findByEmailOrPhone(@Param("email") String email,@Param("phone") String phone);
+    List<ProfileEntity> findByEmailOrPhone(@Param("email") String email, @Param("phone") String phone);
 
     @Query("from ProfileEntity  where phone=?1")
     Optional<ProfileEntity> findByPhone(String phone);
@@ -41,4 +42,8 @@ public interface ProfileRepository extends JpaRepository<ProfileEntity,Long> {
     void updateByPhone(String phone, ProfileStatus profileStatus);
 
     void deleteByPhone(String phone);
+
+    @Query("SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END " +
+            "FROM ProfileEntity p WHERE (p.email = :email OR p.phone = :phone) AND p.status = 'ACTIVE'")
+    boolean existsActiveByEmailOrPhone(String email, String phone);
 }

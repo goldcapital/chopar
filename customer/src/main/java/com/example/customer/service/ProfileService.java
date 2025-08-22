@@ -1,7 +1,9 @@
 package com.example.customer.service;
 
 
+import com.example.customer.dto.PageableResult;
 import com.example.customer.dto.ProfileDTO;
+import com.example.customer.dto.request.ProfileUpdateRequest;
 import com.example.customer.entity.ProfileEntity;
 import com.example.customer.enums.AppLanguage;
 import com.example.customer.enums.ProfileStatus;
@@ -10,37 +12,25 @@ import com.example.customer.mapper.ProfileMapper;
 import com.example.customer.repository.ProfileRepository;
 import com.example.customer.util.MDUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-@Service
-@RequiredArgsConstructor
-public class ProfileService {
-    private final ProfileRepository profileRepository;
-    private final ProfileMapper profileMapper;
-    private final ResourceBundleService resourceBundleService;
+import java.util.Collections;
+import java.util.List;
+
+import static com.example.customer.config.ThrowIfMessage.ITEM_NOT_FOUND;
 
 
-    public Boolean crete(ProfileDTO dto, AppLanguage appLanguage) {
+public interface ProfileService {
 
-        profileRepository.findByEmailOrPhone(dto.getEmail(), dto.getPhone())
-                .ifPresent(profile -> {
-                    throw new AppBadException(resourceBundleService.getMessage("profile.exists", appLanguage));
-                });
-        var passwordEncoder = MDUtil.encode(dto.getPassword());
-        var profileEntity = profileMapper.toEntity(dto, passwordEncoder, ProfileStatus.ACTIVE);
+     Boolean crete(ProfileDTO dto, AppLanguage appLanguage) ;
 
-        profileRepository.save(profileEntity);
-        return true;
+     PageableResult<List<ProfileDTO>> getProfileAll(PageRequest of);
 
-    }
+     Boolean updateANY(ProfileUpdateRequest dto, AppLanguage appLanguage);
 
-    public ProfileDTO updateANY(ProfileDTO dto, AppLanguage appLanguage) {
-        ProfileEntity profileEntity = profileRepository.findByEmailOrPhone(dto.getEmail(), dto.getPhone())
-                .orElseThrow(() -> new AppBadException(resourceBundleService.getMessage("", appLanguage)));
-
-        if (dto.getName() != null) {
-            profileEntity.setName(dto.getName());
-        }
-        return null;
-    }
+    Boolean deleteById(Long id,AppLanguage language);
 }
