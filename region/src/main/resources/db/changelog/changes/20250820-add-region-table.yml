@@ -1,0 +1,53 @@
+databaseChangeLog:
+  - changeSet:
+      id: 13242342342451
+      author: muhammad
+      changes:
+        - createTable:
+            tableName: region
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: order_number
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: nameuz
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name_ru
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name_en
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: region_code
+                  type: varchar
+
+              - column:
+                   name: visible
+                   type: boolean
+              - column:
+                  name: create_date
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: update_date
+                  type: TIMESTAMP
+
+
+

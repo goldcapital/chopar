@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: notification-service
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:mydb}
+    username: ${DB_USERNAME:myuser}
+    password: ${DB_PASSWORD:12345}
+  jpa:
+    hibernate:
+      ddl-auto: create
+  kafka:
+    consumer:
+      bootstrap-servers: ${BOOTSTRAP_SERVERS:localhost:9094}
+      group-id: scoringConsumerGroup
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      properties:
+        spring.json.trusted.packages: '*'
+  mail:
+    host: smtp.mail.ru
+    port: 465
+    username: muhammadabduraimov561@mail.ru
+    password: M5PcZeMeCyc7mnASZdBi
+    protocol: smtps
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          ssl:
+            enable: true
+          connectiontimeout: 50000
+          timeout: 50000
+          writetimeout: 50000
+
+kafka-topics:
+  producer:
+    topic:
+      sms: kafka-send-sms
+      email: kafka-send-email
+
+server:
+  port: 5676
