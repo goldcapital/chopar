@@ -16,8 +16,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 import java.util.function.BiConsumer;
 
 @Slf4j
@@ -27,7 +25,6 @@ public class RegionServiceImpl implements RegionService {
     private final RegionRep regionRep;
     private final RegionMapper regionMapper;
     private final ResourceBundleService resourceBundleService;
-
     @Override
     public RegionResponse creatRegion(RegionCreatRequest request, AppLanguage appLanguage) {
         validateRegionNameUniqueness(request, appLanguage);

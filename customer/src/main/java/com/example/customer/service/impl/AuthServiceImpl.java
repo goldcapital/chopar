@@ -1,7 +1,6 @@
 package com.example.customer.service.impl;
 
 
-import com.example.customer.config.AuthProperties;
 import com.example.customer.dto.request.CustomerRequest;
 import com.example.customer.dto.request.KafkaSendMessage;
 import com.example.customer.dto.request.ProfileLoginRequestDTO;
@@ -48,7 +47,6 @@ public class AuthServiceImpl implements AuthService {
     private final ProfileMapper profileMapper;
     private final KeycloakService keycloakService;
     private final SmsServerService smsServerService;
-    private final AuthProperties authProperties;
 
     @Override
     public Boolean registration(CustomerRequest dto, AppLanguage appLanguage) {

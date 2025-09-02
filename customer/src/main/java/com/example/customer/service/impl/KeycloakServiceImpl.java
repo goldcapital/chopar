@@ -46,10 +46,11 @@ public class KeycloakServiceImpl implements KeycloakService {
         }
 
         try {
-            var user = getKeycloakUser(username);
-            if (!Objects.isNull(user)) {
+            var user = mainResource().search(username, true);
 
-                mainResource().delete(user.getId());
+            if (user != null && !user.isEmpty()) {
+                var userRepresentation = user.get(INDEX);
+                mainResource().delete(userRepresentation.getId());
             }
             var response = mainResource().create(makeUserRepresentation(customerRequest));
             if (response.getStatus() == 409) {

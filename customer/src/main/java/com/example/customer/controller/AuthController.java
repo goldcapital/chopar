@@ -26,7 +26,7 @@ public class AuthController {
     @Operation(summary = "Api for login", description = "this api used for authorization")
     public ResponseEntity<AuthTokenResponse> loge(@RequestBody ProfileLoginRequestDTO dto,
                                                   @RequestHeader(value = "Accept-Language", defaultValue = "UZ") String appLanguage) {
-        return ResponseEntity.ok(authService.loge(dto, appLanguage));
+        return ResponseEntity.ok(authService.loge(dto, AppLanguage.valueOf(appLanguage.toUpperCase())));
     }
 
     @Operation(summary = "Api for email  registration", description = "this api used for registration email")
@@ -34,7 +34,7 @@ public class AuthController {
     public ResponseEntity<Boolean> registrationEmail(@RequestBody CustomerRequest dto,
                                                      @RequestHeader(value = "Accept-Language", defaultValue = "UZ") String appLanguage) {
         log.info("registration data {}", dto);
-        return ResponseEntity.ok(authService.registration(dto, appLanguage));
+        return ResponseEntity.ok(authService.registration(dto, AppLanguage.valueOf(appLanguage.toUpperCase())));
     }
 
     @Operation(summary = "Api for email code Verification", description = "this api used for verification email")
